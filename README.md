@@ -1,6 +1,6 @@
 # Step control iOS
 
-A cool step-by-step indicator control within a pager for iOS.
+A cool step-by-step indicator control within a pager for iOS. For the Android version go to this [link](https://github.com/moove-it/step-control-android).
 
 ![Alt Text](https://github.com/moove-it/step-control-ios/blob/master/step-control-ios.gif)
 

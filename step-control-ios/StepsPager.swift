@@ -14,9 +14,33 @@ public protocol  StepControlDataSource {
     func viewAtIndex(viewPager: StepControl, index:Int, view:UIView?) -> UIView
 }
 
+public enum Position {
+    case top, bottom
+}
+
 open class StepControl: UIView {
 
     public var dataSource: StepControlDataSource? = nil {
+        didSet {
+            reloadData()
+        }
+    }
+
+    public var controlBackgroundColor = UIColor.orange {
+        didSet {
+            self.pageControl.selectedColor = controlBackgroundColor
+            reloadData()
+        }
+    }
+
+    public var controlNotSelectedColor = UIColor.gray {
+        didSet {
+            self.pageControl.unselectedColor = controlNotSelectedColor
+            reloadData()
+        }
+    }
+
+    public var position: Position = .bottom {
         didSet {
             reloadData()
         }
@@ -32,7 +56,7 @@ open class StepControl: UIView {
         return ((pageControl.shrinkDotPercentage * 30.0) / 100.0) + (pageControl.marginBetweenDots * CGFloat(numberOfItems - 1))
     }
 
-    required  public init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
     }
@@ -84,28 +108,43 @@ open class StepControl: UIView {
     }
 
     fileprivate func setupPageControl() {
+        self.pageControl.selectedColor = self.controlBackgroundColor
+        self.pageControl.unselectedColor = self.controlNotSelectedColor
         self.pageControl.backgroundColor = UIColor.clear
 
+        setPageControlPosition()
+    }
+
+    fileprivate func setPageControlPosition() {
         let heightConstraint = NSLayoutConstraint(item: pageControl, attribute:
             .height, relatedBy: .equal, toItem: nil,
                      attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0,
                      constant: 30)
 
-        let topConstraint = NSLayoutConstraint(item: pageControl, attribute:
-            .top, relatedBy: .equal, toItem: self,
-                     attribute: NSLayoutAttribute.top, multiplier: 1.0,
-                     constant: 25)
-
         let centerHorizontally = NSLayoutConstraint(item: pageControl, attribute:
             .centerX, relatedBy: .equal, toItem: self,
-                  attribute: NSLayoutAttribute.centerX, multiplier: 1.0,
-                  constant: 0)
+                      attribute: NSLayoutAttribute.centerX, multiplier: 1.0,
+                      constant: 0)
+
+
+        var positionConstraint: NSLayoutConstraint?
+
+        if (position == .top) {
+            positionConstraint = NSLayoutConstraint(item: pageControl, attribute:
+                .top, relatedBy: .equal, toItem: self,
+                      attribute: NSLayoutAttribute.top, multiplier: 1.0,
+                      constant: 25)
+        } else {
+            positionConstraint = NSLayoutConstraint(item: pageControl, attribute:
+                .bottom, relatedBy: .equal, toItem: self,
+                      attribute: NSLayoutAttribute.bottom, multiplier: 1.0,
+                      constant: -25)
+        }
 
 
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([heightConstraint, centerHorizontally, topConstraint])
+        NSLayoutConstraint.activate([heightConstraint, centerHorizontally, positionConstraint!])
     }
-
 
     fileprivate func reloadData() {
         if let dataSource = dataSource {

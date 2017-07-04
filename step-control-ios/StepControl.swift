@@ -15,6 +15,10 @@ class Steps: UIControl {
     let shrinkDotPercentage: CGFloat = 70.0
     let marginBetweenDots: CGFloat = 40.0
 
+    var selectedColor: UIColor = UIColor.orange
+    var unselectedColor: UIColor = UIColor.gray
+
+
     var numberOfSteps = 0 {
         didSet {
             self.createLayers()
@@ -72,18 +76,23 @@ class Steps: UIControl {
     }
 
     func createLayers() {
+        self.layer.sublayers?.removeAll()
+
         var dotLayers = [DotTextLayer]()
         var connectLayers = [CALayer]()
 
         for index in 1...numberOfSteps {
             let layer = DotTextLayer()
+            layer.selectedColor = self.selectedColor.cgColor
+            layer.unselectedColor = self.unselectedColor.cgColor
+            layer.completedColor = self.selectedColor.cgColor
             layer.index = index
             dotLayers.append(layer)
         }
 
         for _ in 1...numberOfSteps-1 {
             let connectLayer = CALayer()
-            connectLayer.backgroundColor = UIColor.gray.cgColor
+            connectLayer.backgroundColor = self.unselectedColor.cgColor
             connectLayers.append(connectLayer)
         }
 
@@ -129,9 +138,9 @@ class Steps: UIControl {
                 let connectLayer = sublayers[index]
 
                 if (index + 1 >= currentPage) {
-                    connectLayer.backgroundColor = UIColor.gray.cgColor
+                    connectLayer.backgroundColor = self.unselectedColor.cgColor
                 } else {
-                    connectLayer.backgroundColor = UIColor.orange.cgColor
+                    connectLayer.backgroundColor = self.selectedColor.cgColor
                 }
 
                 connectLayer.frame = CGRect(x: xDotPosition(index: index) + dotsSize / 2.0 , y: connectorLayerYPosition, width: marginBetweenDots, height: 2)

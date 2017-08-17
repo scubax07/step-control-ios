@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "StepControliOS"
-  s.version      = "0.1"
+  s.version      = "0.4"
   s.summary      = "Custom page control with steps."
   s.description  = "Step control with pager. Use it to recreate a step-by-step view."
   s.homepage     = "http://www.moove-it.com/community"
@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform     = :ios, "10.0"
+  s.platform     = :ios, "9.0"
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -61,7 +61,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/moove-it/step-control-ios.git", :tag => "v0.1" }
+  s.source       = { :git => "https://github.com/moove-it/step-control-ios.git", :tag => "0.4" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #

@@ -1,0 +1,6 @@
+framework module StepControliOS {
+  umbrella header "StepControliOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,21 @@
+PODS:
+  - StepControliOS (0.4)
+
+DEPENDENCIES:
+  - StepControliOS (from `https://github.com/moove-it/step-control-ios`)
+
+EXTERNAL SOURCES:
+  StepControliOS:
+    :git: https://github.com/moove-it/step-control-ios
+
+CHECKOUT OPTIONS:
+  StepControliOS:
+    :commit: 8d7439ac831557cb978733a9b3346ff5fd9960a0
+    :git: https://github.com/moove-it/step-control-ios
+
+SPEC CHECKSUMS:
+  StepControliOS: 1fef103e4a2f3bed10f13be0539751e491417123
+
+PODFILE CHECKSUM: f638c567a3457cdaefaa088cf4e1b261ed430f26
+
+COCOAPODS: 1.3.1

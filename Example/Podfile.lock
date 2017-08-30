@@ -10,7 +10,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   StepControliOS:
-    :commit: 8d7439ac831557cb978733a9b3346ff5fd9960a0
+    :commit: 25954795107fe76cbffb84cb389fd9971d733d6d
     :git: https://github.com/moove-it/step-control-ios
 
 SPEC CHECKSUMS:

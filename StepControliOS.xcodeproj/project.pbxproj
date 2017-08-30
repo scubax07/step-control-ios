@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80512D9C1F56FB1F0085B369 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80512D9B1F56FB1F0085B369 /* Constants.swift */; };
 		EBDD1E7F1EEF36E300AA0B44 /* step-control-ios.h in Headers */ = {isa = PBXBuildFile; fileRef = EBDD1E7D1EEF36E300AA0B44 /* step-control-ios.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EBDD1E881EEF36FB00AA0B44 /* DotTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDD1E851EEF36FB00AA0B44 /* DotTextLayer.swift */; };
 		EBDD1E891EEF36FB00AA0B44 /* StepControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDD1E861EEF36FB00AA0B44 /* StepControl.swift */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		80512D9B1F56FB1F0085B369 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EBDD1E7A1EEF36E300AA0B44 /* StepControliOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StepControliOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBDD1E7D1EEF36E300AA0B44 /* step-control-ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "step-control-ios.h"; sourceTree = "<group>"; };
 		EBDD1E7E1EEF36E300AA0B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				EBDD1E871EEF36FB00AA0B44 /* StepsPager.swift */,
 				EBDD1E7D1EEF36E300AA0B44 /* step-control-ios.h */,
 				EBDD1E7E1EEF36E300AA0B44 /* Info.plist */,
+				80512D9B1F56FB1F0085B369 /* Constants.swift */,
 			);
 			path = "step-control-ios";
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 				EBDD1E881EEF36FB00AA0B44 /* DotTextLayer.swift in Sources */,
 				EBDD1E8A1EEF36FB00AA0B44 /* StepsPager.swift in Sources */,
 				EBDD1E891EEF36FB00AA0B44 /* StepControl.swift in Sources */,
+				80512D9C1F56FB1F0085B369 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

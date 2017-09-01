@@ -19,61 +19,63 @@ public enum Position {
 }
 
 open class StepControl: UIView {
-  
+
   public var dataSource: StepControlDataSource? = nil {
     didSet {
       reloadData()
     }
   }
-  
+
   public var controlBackgroundColor = Constants.Colors.selectedColor {
     didSet {
       pageControl.selectedColor = controlBackgroundColor
       reloadData()
     }
   }
-  
+
   public var controlNotSelectedColor = Constants.Colors.unselectedColor {
     didSet {
       pageControl.unselectedColor = controlNotSelectedColor
       reloadData()
     }
   }
-  
+
   public var position: Position = .top {
     didSet {
       reloadData()
     }
   }
-  
-  fileprivate var pageControl = Steps()
-  fileprivate var scrollView = UIScrollView()
+
+  fileprivate var pageControl     = Steps()
+  fileprivate var scrollView      = UIScrollView()
   fileprivate var currentPosition = 0
-  fileprivate var numberOfItems = 0
-  fileprivate var itemViews: Dictionary<Int, UIView> = [:]
-  
+  fileprivate var numberOfItems   = 0
+  fileprivate var itemViews       = [Int:UIView]()
+
   private var pageControlWidth: CGFloat {
     return ((pageControl.shrinkDotPercentage * 30.0) / 100.0) + (pageControl.marginBetweenDots * CGFloat(numberOfItems - 1))
   }
-  
+
   required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+
     setupView()
   }
-  
+
   override init(frame: CGRect) {
     super.init(frame: frame)
+
     setupView()
   }
-  
+
   fileprivate func setupView() {
     addSubview(scrollView)
     addSubview(pageControl)
-    
+
     setupScrollView()
     setupPageControl()
   }
-  
+
   fileprivate func setupScrollView() {
     scrollView.isPagingEnabled = true
     scrollView.alwaysBounceHorizontal = false
@@ -81,120 +83,94 @@ open class StepControl: UIView {
     scrollView.showsHorizontalScrollIndicator = false
     scrollView.showsVerticalScrollIndicator = false
     scrollView.delegate = self
-    
-    let topConstraint = NSLayoutConstraint(item: scrollView, attribute:
-      .top, relatedBy: .equal, toItem: self,
-            attribute: NSLayoutAttribute.top, multiplier: 1.0,
-            constant: 0)
-    
-    let bottomContraints = NSLayoutConstraint(item: scrollView, attribute:
-      .bottom, relatedBy: .equal, toItem: self,
-               attribute: NSLayoutAttribute.bottom, multiplier: 1.0,
-               constant: 0)
-    
-    let leftContraints = NSLayoutConstraint(item: scrollView, attribute:
-      .leadingMargin, relatedBy: .equal, toItem: self,
-                      attribute: .leadingMargin, multiplier: 1.0,
-                      constant: 0)
-    
-    let rightContraints = NSLayoutConstraint(item: scrollView, attribute:
-      .trailingMargin, relatedBy: .equal, toItem: self,
-                       attribute: .trailingMargin, multiplier: 1.0,
-                       constant: 0)
-    
-    
     scrollView.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([topConstraint, rightContraints, leftContraints, bottomContraints])
+
+    NSLayoutConstraint.activate(getConstraints())
   }
-  
+
+  fileprivate func getConstraints() -> [NSLayoutConstraint] {
+    let topConstraint    = createConstraint(item: scrollView, attr1: .top, attr2: .top, multiplier: 1, constant: 0)
+    let bottomContraints = createConstraint(item: scrollView, attr1: .bottom, attr2: .bottom, multiplier: 1, constant: 0)
+    let leftContraints   = createConstraint(item: scrollView, attr1: .leadingMargin, attr2: .leadingMargin, multiplier: 1, constant: 0)
+    let rightContraints  = createConstraint(item: scrollView, attr1: .trailingMargin, attr2: .trailingMargin, multiplier: 1, constant: 0)
+
+    return [topConstraint, rightContraints, leftContraints, bottomContraints]
+  }
+
+  fileprivate func createConstraint(item: UIView, attr1: NSLayoutAttribute, attr2: NSLayoutAttribute, multiplier: CGFloat, constant: CGFloat) -> NSLayoutConstraint {
+    return NSLayoutConstraint(item: item, attribute: attr1, relatedBy: .equal, toItem: self, attribute: attr2, multiplier: multiplier, constant: constant)
+  }
+
   fileprivate func setupPageControl() {
     pageControl.selectedColor = controlBackgroundColor
     pageControl.unselectedColor = controlNotSelectedColor
     pageControl.backgroundColor = UIColor.clear
-    
+
     setPageControlPosition()
   }
-  
+
   fileprivate func setPageControlPosition() {
-    let heightConstraint = NSLayoutConstraint(item: pageControl, attribute:
-      .height, relatedBy: .equal, toItem: nil,
-               attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0,
-               constant: 30)
-    
-    let centerHorizontally = NSLayoutConstraint(item: pageControl, attribute:
-      .centerX, relatedBy: .equal, toItem: self,
-                attribute: NSLayoutAttribute.centerX, multiplier: 1.0,
-                constant: 0)
-    
-    
-    var positionConstraint: NSLayoutConstraint?
-    
-    if (position == .top) {
-      positionConstraint = NSLayoutConstraint(item: pageControl, attribute:
-        .top, relatedBy: .equal, toItem: self,
-              attribute: NSLayoutAttribute.top, multiplier: 1.0,
-              constant: 25)
-    } else {
-      positionConstraint = NSLayoutConstraint(item: pageControl, attribute:
-        .bottom, relatedBy: .equal, toItem: self,
-                 attribute: NSLayoutAttribute.bottom, multiplier: 1.0,
-                 constant: -25)
-    }
-    
-    
+    let heightConstraint   = createConstraint(item: pageControl, attr1: .height, attr2: .notAnAttribute, multiplier: 1, constant: 30)
+    let centerHorizontally = createConstraint(item: pageControl, attr1: .centerX, attr2: .centerX, multiplier: 1, constant: 0)
+    let positionConstraint = getPositionConstraint()
+
     pageControl.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([heightConstraint, centerHorizontally, positionConstraint!])
+    NSLayoutConstraint.activate([heightConstraint, centerHorizontally, positionConstraint])
   }
-  
+
+  fileprivate func getPositionConstraint() -> NSLayoutConstraint {
+    if (position == .top) {
+      return createConstraint(item: pageControl, attr1: .top, attr2: .top, multiplier: 1, constant: 25)
+    } else {
+      return createConstraint(item: pageControl, attr1: .bottom, attr2: .bottom, multiplier: 1, constant: -25)
+    }
+  }
+
   fileprivate func reloadData() {
     if let dataSource = dataSource {
       numberOfItems = dataSource.numberOfItems(viewPager: self)
     }
-    
+
     removeViewsFromSuper()
-    
+
     DispatchQueue.main.async {
       self.reloadContent()
     }
   }
-  
+
   private func reloadContent() {
     setupStepControlOnReload()
     scrollView.contentSize = CGSize(width: scrollView.frame.width *  CGFloat(numberOfItems) , height: scrollView.frame.height)
     reloadViews(index: 0)
   }
-  
+
   fileprivate func removeViewsFromSuper() {
     itemViews.removeAll()
-    
+
     for view in scrollView.subviews {
       view.removeFromSuperview()
     }
   }
-  
+
   fileprivate func setupStepControlOnReload() {
-    let widthConstraint = NSLayoutConstraint(item: pageControl, attribute:
-      .width, relatedBy: .equal, toItem: nil,
-              attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0,
-              constant: pageControlWidth)
-    
+    let widthConstraint       = createConstraint(item: pageControl, attr1: .width, attr2: .notAnAttribute, multiplier: 1, constant: pageControlWidth)
     pageControl.numberOfSteps = numberOfItems
     NSLayoutConstraint.activate([widthConstraint])
     pageControl.updateLayerFrames()
   }
-  
+
   fileprivate func loadViewAtIndex(index: Int){
     let view = dataSource != nil ? dataSource!.viewAtIndex(viewPager: self, index: index, view: itemViews[index]) : UIView()
-    
+
     setFrameForView(view: view, index: index)
-    
+
     if (itemViews[index] == nil) {
       scrollView.addSubview(view)
     }
-    
+
     itemViews[index] = view
   }
-  
+
   fileprivate func reloadViews(index:Int) {
     for i in (index - 1)...(index + 1) {
       if (i >= 0 && i < numberOfItems){
@@ -202,23 +178,23 @@ open class StepControl: UIView {
       }
     }
   }
-  
+
   func setFrameForView(view:UIView,index:Int) {
     view.frame = CGRect(x: scrollView.frame.width * CGFloat(index), y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
   }
 }
 
 extension StepControl: UIScrollViewDelegate {
-  
+
   public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
     NSObject.cancelPreviousPerformRequests(withTarget: self)
-    var pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-    pageNumber = pageNumber + 1
+    var pageNumber          = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+    pageNumber              = pageNumber + 1
     pageControl.currentPage = Int(pageNumber)
-    currentPosition = pageControl.currentPage
+    currentPosition         = pageControl.currentPage
     scrollToPage(index: Int(pageNumber))
   }
-  
+
   // Help from: http://stackoverflow.com/a/1857162
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
     NSObject.cancelPreviousPerformRequests(withTarget: scrollView)
@@ -227,7 +203,7 @@ extension StepControl: UIScrollViewDelegate {
 }
 
 extension StepControl {
-  
+
   public func moveToNextPage () {
     if (currentPosition <= numberOfItems && currentPosition > 0) {
       scrollToPage(index: currentPosition)
@@ -237,7 +213,7 @@ extension StepControl {
       }
     }
   }
-  
+
   public func scrollToPage(index:Int) {
     if(index <= numberOfItems && index > 0) {
       let zIndex = index - 1
@@ -247,5 +223,4 @@ extension StepControl {
       currentPosition = index
     }
   }
-  
 }

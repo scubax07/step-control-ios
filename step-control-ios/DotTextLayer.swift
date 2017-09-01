@@ -4,30 +4,30 @@ import QuartzCore
 
 //Help from https://stackoverflow.com/questions/4765461/vertically-align-text-in-a-catextlayer
 class DotTextLayer: CATextLayer {
-  
-  let defaultForegroundColor = Constants.Colors.foregroundCGColor
-  let defaultFontSize: CGFloat = 14
+
+  let defaultFontSize      = CGFloat(14)
   let defaultAlignmentMode = "center"
-  
-  var isSelected = false
+  let completedString      = "✓"
+
+  var isSelected  = false
   var isCompleted = false
+  var index       = 0
   var unselectedColor = Constants.Colors.unselectedCGColor
-  var selectedColor = Constants.Colors.selectedCGColor
-  var completedColor = Constants.Colors.completedCGColor
-  var index = 0
-  
+  var selectedColor   = Constants.Colors.selectedCGColor
+  var completedColor  = Constants.Colors.completedCGColor
+
   override var frame: CGRect {
     didSet {
       setDefaultValues()
       setNeedsDisplay()
     }
   }
-  
+
   override open func draw(in ctx: CGContext) {
     let yDiff: CGFloat
     let fontSize: CGFloat
     let height = bounds.height
-    
+
     if let attributedString = string as? NSAttributedString {
       fontSize = attributedString.size().height
       yDiff = (height-fontSize) / 2
@@ -35,28 +35,31 @@ class DotTextLayer: CATextLayer {
       fontSize = self.fontSize
       yDiff = (height-fontSize) / 2 - fontSize / 10
     }
-    
+
     ctx.saveGState()
     ctx.translateBy(x: 0.0, y: yDiff)
     super.draw(in: ctx)
     ctx.restoreGState()
   }
-  
+
   fileprivate func setDefaultValues() {
+    let stringAndBkgColor = getStringAndBackgroundColor()
+
+    string          = stringAndBkgColor.string
+    backgroundColor = stringAndBkgColor.backgroundColor
+    foregroundColor = Constants.Colors.foregroundCGColor
+    fontSize        = defaultFontSize
+    alignmentMode   = defaultAlignmentMode
+    cornerRadius    = frame.width / 2.0
+  }
+
+  fileprivate func getStringAndBackgroundColor() -> (string: String, backgroundColor: CGColor) {
     if (isCompleted) {
-      string = "✓"
-      backgroundColor = completedColor
+      return (completedString, completedColor)
     } else if (isSelected) {
-      string = String(index)
-      backgroundColor = selectedColor
+      return (String(index), selectedColor)
     } else {
-      string = nil
-      backgroundColor = unselectedColor
+      return (completedString, unselectedColor)
     }
-    
-    foregroundColor = defaultForegroundColor
-    fontSize = defaultFontSize
-    alignmentMode = defaultAlignmentMode
-    cornerRadius = frame.width / 2.0
   }
 }

@@ -89,16 +89,16 @@ open class StepControl: UIView {
   }
 
   fileprivate func getConstraints() -> [NSLayoutConstraint] {
-    let topConstraint    = createConstraint(item: scrollView, attr1: .top, attr2: .top, multiplier: 1, constant: 0)
-    let bottomContraints = createConstraint(item: scrollView, attr1: .bottom, attr2: .bottom, multiplier: 1, constant: 0)
-    let leftContraints   = createConstraint(item: scrollView, attr1: .leadingMargin, attr2: .leadingMargin, multiplier: 1, constant: 0)
-    let rightContraints  = createConstraint(item: scrollView, attr1: .trailingMargin, attr2: .trailingMargin, multiplier: 1, constant: 0)
+    let topConstraint    = createConstraint(item: scrollView, attr1: .top, attr2: .top, multiplier: 1, constant: 0, toItem: self)
+    let bottomContraints = createConstraint(item: scrollView, attr1: .bottom, attr2: .bottom, multiplier: 1, constant: 0, toItem: self)
+    let leftContraints   = createConstraint(item: scrollView, attr1: .leadingMargin, attr2: .leadingMargin, multiplier: 1, constant: 0, toItem: self)
+    let rightContraints  = createConstraint(item: scrollView, attr1: .trailingMargin, attr2: .trailingMargin, multiplier: 1, constant: 0, toItem: self)
 
     return [topConstraint, rightContraints, leftContraints, bottomContraints]
   }
 
-  fileprivate func createConstraint(item: UIView, attr1: NSLayoutAttribute, attr2: NSLayoutAttribute, multiplier: CGFloat, constant: CGFloat) -> NSLayoutConstraint {
-    return NSLayoutConstraint(item: item, attribute: attr1, relatedBy: .equal, toItem: self, attribute: attr2, multiplier: multiplier, constant: constant)
+  fileprivate func createConstraint(item: UIView, attr1: NSLayoutAttribute, attr2: NSLayoutAttribute, multiplier: CGFloat, constant: CGFloat, toItem: UIView?) -> NSLayoutConstraint {
+    return NSLayoutConstraint(item: item, attribute: attr1, relatedBy: .equal, toItem: toItem, attribute: attr2, multiplier: multiplier, constant: constant)
   }
 
   fileprivate func setupPageControl() {
@@ -110,8 +110,8 @@ open class StepControl: UIView {
   }
 
   fileprivate func setPageControlPosition() {
-    let heightConstraint   = createConstraint(item: pageControl, attr1: .height, attr2: .notAnAttribute, multiplier: 1, constant: 30)
-    let centerHorizontally = createConstraint(item: pageControl, attr1: .centerX, attr2: .centerX, multiplier: 1, constant: 0)
+    let heightConstraint   = createConstraint(item: pageControl, attr1: .height, attr2: .notAnAttribute, multiplier: 1, constant: 30, toItem: nil)
+    let centerHorizontally = createConstraint(item: pageControl, attr1: .centerX, attr2: .centerX, multiplier: 1, constant: 0, toItem: self)
     let positionConstraint = getPositionConstraint()
 
     pageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -120,9 +120,9 @@ open class StepControl: UIView {
 
   fileprivate func getPositionConstraint() -> NSLayoutConstraint {
     if (position == .top) {
-      return createConstraint(item: pageControl, attr1: .top, attr2: .top, multiplier: 1, constant: 25)
+      return createConstraint(item: pageControl, attr1: .top, attr2: .top, multiplier: 1, constant: 25, toItem: self)
     } else {
-      return createConstraint(item: pageControl, attr1: .bottom, attr2: .bottom, multiplier: 1, constant: -25)
+      return createConstraint(item: pageControl, attr1: .bottom, attr2: .bottom, multiplier: 1, constant: -25, toItem: self)
     }
   }
 
@@ -153,7 +153,7 @@ open class StepControl: UIView {
   }
 
   fileprivate func setupStepControlOnReload() {
-    let widthConstraint       = createConstraint(item: pageControl, attr1: .width, attr2: .notAnAttribute, multiplier: 1, constant: pageControlWidth)
+    let widthConstraint       = createConstraint(item: pageControl, attr1: .width, attr2: .notAnAttribute, multiplier: 1, constant: pageControlWidth, toItem: nil)
     pageControl.numberOfSteps = numberOfItems
     NSLayoutConstraint.activate([widthConstraint])
     pageControl.updateLayerFrames()

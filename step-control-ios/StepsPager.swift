@@ -51,6 +51,7 @@ open class StepControl: UIView {
   fileprivate var currentPosition = 0
   fileprivate var numberOfItems = 0
   fileprivate var itemViews: Dictionary<Int, UIView> = [:]
+  fileprivate var scrollEnable = true
   
   private var pageControlWidth: CGFloat {
     return ((pageControl.shrinkDotPercentage * 30.0) / 100.0) + (pageControl.marginBetweenDots * CGFloat(numberOfItems - 1))
@@ -221,15 +222,22 @@ extension StepControl: UIScrollViewDelegate {
   
   // Help from: http://stackoverflow.com/a/1857162
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    NSObject.cancelPreviousPerformRequests(withTarget: scrollView)
-    perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.3)
+    if scrollEnable {
+      NSObject.cancelPreviousPerformRequests(withTarget: scrollView)
+      perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.3)
+    }
+    scrollView.contentOffset.x = 0
   }
 }
 
 extension StepControl {
   
+  public func disableHorizontalScroll() {
+    scrollEnable = false
+  }
+  
   public func moveToNextPage () {
-    if (currentPosition <= numberOfItems && currentPosition > 0) {
+    if currentPosition <= numberOfItems && currentPosition > 0 {
       scrollToPage(index: currentPosition)
       currentPosition += 1
       if currentPosition > numberOfItems {
@@ -239,7 +247,7 @@ extension StepControl {
   }
   
   public func scrollToPage(index:Int) {
-    if(index <= numberOfItems && index > 0) {
+    if index <= numberOfItems && index > 0 {
       let zIndex = index - 1
       let iframe = CGRect(x: scrollView.frame.width * CGFloat(zIndex), y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
       scrollView.setContentOffset(iframe.origin, animated: true)

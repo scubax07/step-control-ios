@@ -229,10 +229,6 @@ extension StepControl: UIScrollViewDelegate {
 
 extension StepControl {
   
-  public func disableHorizontalScroll() {
-    scrollEnable = false
-  }
-  
   public func moveToNextPage () {
     if currentPosition <= numberOfItems && currentPosition > 0 {
       scrollToPage(index: currentPosition)

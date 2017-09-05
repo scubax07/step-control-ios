@@ -1,5 +1,5 @@
 PODS:
-  - StepControliOS (0.4)
+  - StepControliOS (0.2)
 
 DEPENDENCIES:
   - StepControliOS (from `https://github.com/moove-it/step-control-ios`)
@@ -10,11 +10,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   StepControliOS:
-    :commit: 25954795107fe76cbffb84cb389fd9971d733d6d
+    :commit: 8cbb9fbd8cafa955efc27464b81f29eb25445875
     :git: https://github.com/moove-it/step-control-ios
 
 SPEC CHECKSUMS:
-  StepControliOS: 1fef103e4a2f3bed10f13be0539751e491417123
+  StepControliOS: 4f7c6017f0a783a0b36df4ed09644729eccfae6b
 
 PODFILE CHECKSUM: f638c567a3457cdaefaa088cf4e1b261ed430f26
 

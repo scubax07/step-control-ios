@@ -67,6 +67,7 @@ open class StepControl: UIView {
   }
   
   fileprivate func setupView() {
+    scrollView.isScrollEnabled = false
     addSubview(scrollView)
     addSubview(pageControl)
     
@@ -228,8 +229,12 @@ extension StepControl: UIScrollViewDelegate {
 
 extension StepControl {
   
+  public func disableHorizontalScroll() {
+    scrollEnable = false
+  }
+  
   public func moveToNextPage () {
-    if (currentPosition <= numberOfItems && currentPosition > 0) {
+    if currentPosition <= numberOfItems && currentPosition > 0 {
       scrollToPage(index: currentPosition)
       currentPosition += 1
       if currentPosition > numberOfItems {
@@ -239,7 +244,7 @@ extension StepControl {
   }
   
   public func scrollToPage(index:Int) {
-    if(index <= numberOfItems && index > 0) {
+    if index <= numberOfItems && index > 0 {
       let zIndex = index - 1
       let iframe = CGRect(x: scrollView.frame.width * CGFloat(zIndex), y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
       scrollView.setContentOffset(iframe.origin, animated: true)

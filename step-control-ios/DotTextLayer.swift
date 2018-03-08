@@ -7,8 +7,9 @@ class DotTextLayer: CATextLayer {
 
   let defaultFontSize      = CGFloat(14)
   let defaultAlignmentMode = "center"
-  let completedString      = "✓"
-
+  var completedString      = "✓"
+  var pendingString        = "·"
+  
   var isSelected  = false
   var isCompleted = false
   var index       = 0
@@ -59,7 +60,7 @@ class DotTextLayer: CATextLayer {
     } else if (isSelected) {
       return (String(index), selectedColor)
     } else {
-      return (completedString, unselectedColor)
+      return (pendingString, unselectedColor)
     }
   }
 }

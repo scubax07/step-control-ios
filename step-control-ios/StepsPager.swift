@@ -46,6 +46,10 @@ open class StepControl: UIView {
     }
   }
 
+  public var controlCompletedStepString = "✓"
+
+  public var controlPendingStepString = "·"
+
   fileprivate var pageControl     = Steps()
   fileprivate var scrollView      = UIScrollView()
   fileprivate var currentPosition = 0
@@ -105,6 +109,8 @@ open class StepControl: UIView {
   fileprivate func setupPageControl() {
     pageControl.selectedColor = controlBackgroundColor
     pageControl.unselectedColor = controlNotSelectedColor
+    pageControl.completedStepString = controlCompletedStepString
+    pageControl.pendingStepString = controlPendingStepString
     pageControl.backgroundColor = UIColor.clear
 
     setPageControlPosition()
@@ -156,6 +162,8 @@ open class StepControl: UIView {
   fileprivate func setupStepControlOnReload() {
     let widthConstraint       = createConstraint(item: pageControl, attr1: .width, attr2: .notAnAttribute, multiplier: 1, constant: pageControlWidth, toItem: nil)
     pageControl.numberOfSteps = numberOfItems
+    pageControl.completedStepString = controlCompletedStepString
+    pageControl.pendingStepString = controlPendingStepString
     NSLayoutConstraint.activate([widthConstraint])
     pageControl.updateLayerFrames()
   }

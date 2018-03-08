@@ -10,6 +10,9 @@ class Steps: UIControl {
   var selectedColor   = Constants.Colors.selectedColor
   var unselectedColor = Constants.Colors.unselectedColor
 
+  var completedStepString = "✓"
+  var pendingStepString = "·"
+
   var numberOfSteps = 0 {
     didSet {
       createLayers()
@@ -80,6 +83,8 @@ class Steps: UIControl {
     var dotLayers = [DotTextLayer]()
     for index in 1...numberOfSteps {
       let layer             = DotTextLayer()
+      layer.completedString = completedStepString
+      layer.pendingString   = pendingStepString
       layer.index           = index
       layer.selectedColor   = selectedColor.cgColor
       layer.unselectedColor = unselectedColor.cgColor

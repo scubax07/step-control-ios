@@ -102,7 +102,7 @@ open class StepControl: UIView {
     return [topConstraint, rightContraints, leftContraints, bottomContraints]
   }
 
-  fileprivate func createConstraint(item: UIView, attr1: NSLayoutAttribute, attr2: NSLayoutAttribute, multiplier: CGFloat, constant: CGFloat, toItem: UIView?) -> NSLayoutConstraint {
+  fileprivate func createConstraint(item: UIView, attr1: NSLayoutConstraint.Attribute, attr2: NSLayoutConstraint.Attribute, multiplier: CGFloat, constant: CGFloat, toItem: UIView?) -> NSLayoutConstraint {
     return NSLayoutConstraint(item: item, attribute: attr1, relatedBy: .equal, toItem: toItem, attribute: attr2, multiplier: multiplier, constant: constant)
   }
 

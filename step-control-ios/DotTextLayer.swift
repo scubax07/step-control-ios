@@ -50,7 +50,7 @@ class DotTextLayer: CATextLayer {
     backgroundColor = stringAndBkgColor.backgroundColor
     foregroundColor = Constants.Colors.foregroundCGColor
     fontSize        = defaultFontSize
-    alignmentMode   = defaultAlignmentMode
+    alignmentMode   = convertToCATextLayerAlignmentMode(defaultAlignmentMode)
     cornerRadius    = frame.width / 2.0
   }
 
@@ -63,4 +63,9 @@ class DotTextLayer: CATextLayer {
       return (pendingString, unselectedColor)
     }
   }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCATextLayerAlignmentMode(_ input: String) -> CATextLayerAlignmentMode {
+  return CATextLayerAlignmentMode(rawValue: input)
 }

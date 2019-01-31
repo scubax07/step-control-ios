@@ -61,7 +61,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/moove-it/step-control-ios.git", :tag => "v0.4" }
+  s.source       = { :git => "https://github.com/moove-it/step-control-ios.git", :tag => "v0.5" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "StepControliOS"
-  s.version      = "0.4"
+  s.version      = "0.5"
   s.summary      = "Custom page control with steps."
   s.description  = "Step control with pager. Use it to recreate a step-by-step view."
   s.homepage     = "http://www.moove-it.com/community"

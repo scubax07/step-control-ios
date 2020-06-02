@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F3E55902486E494000E9233 /* StepsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E558F2486E494000E9233 /* StepsContainerViewController.swift */; };
 		80512D9C1F56FB1F0085B369 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80512D9B1F56FB1F0085B369 /* Constants.swift */; };
 		EBDD1E7F1EEF36E300AA0B44 /* step-control-ios.h in Headers */ = {isa = PBXBuildFile; fileRef = EBDD1E7D1EEF36E300AA0B44 /* step-control-ios.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EBDD1E881EEF36FB00AA0B44 /* DotTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDD1E851EEF36FB00AA0B44 /* DotTextLayer.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F3E558F2486E494000E9233 /* StepsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepsContainerViewController.swift; sourceTree = "<group>"; };
 		80512D9B1F56FB1F0085B369 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EBDD1E7A1EEF36E300AA0B44 /* StepControliOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StepControliOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBDD1E7D1EEF36E300AA0B44 /* step-control-ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "step-control-ios.h"; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 		EBDD1E7C1EEF36E300AA0B44 /* step-control-ios */ = {
 			isa = PBXGroup;
 			children = (
+				1F3E558F2486E494000E9233 /* StepsContainerViewController.swift */,
 				FB71476D1F5D91CE00476EBC /* Steps.swift */,
 				EBDD1E851EEF36FB00AA0B44 /* DotTextLayer.swift */,
 				EBDD1E871EEF36FB00AA0B44 /* StepsPager.swift */,
@@ -118,6 +121,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = EBDD1E701EEF36E300AA0B44;
@@ -149,6 +153,7 @@
 				FB71476E1F5D91CE00476EBC /* Steps.swift in Sources */,
 				EBDD1E8A1EEF36FB00AA0B44 /* StepsPager.swift in Sources */,
 				80512D9C1F56FB1F0085B369 /* Constants.swift in Sources */,
+				1F3E55902486E494000E9233 /* StepsContainerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

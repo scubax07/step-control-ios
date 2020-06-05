@@ -23,9 +23,9 @@ public extension StepsContainerViewControllerActionable where Self: UIViewContro
 public class StepsContainerViewController: UIViewController {
 
   // MARK: Properties
-  public var stepControl: StepControl = StepControl()
+  public var stepControl = StepControl()
   private var viewSteps: [UIView] = []
-  private var stepIndex: Int = 1
+  private var stepIndex = 1
   
   // MARK: Interface
   public func configure(stepControl: StepControl = StepControl(), steps: UIViewController...) {
@@ -36,17 +36,15 @@ public class StepsContainerViewController: UIViewController {
   }
   
   public func nextPage() {
-    if stepIndex < viewSteps.count {
-      stepIndex += 1
-      stepControl.scrollToPage(index: stepIndex)
-    }
+    guard stepIndex < viewSteps.count else { return }
+    stepIndex += 1
+    stepControl.scrollToPage(index: stepIndex)
   }
   
   public func lastPage() {
-    if stepIndex > 1 {
-      stepIndex -= 1
-      stepControl.scrollToPage(index: stepIndex)
-    }
+    guard stepIndex > 1 else { return }
+    stepIndex -= 1
+    stepControl.scrollToPage(index: stepIndex)
   }
   
   public var currentPageIndex: Int {
@@ -71,23 +69,23 @@ public class StepsContainerViewController: UIViewController {
     stepControl.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(stepControl)
     
-    let constraints = [stepControl.topAnchor.constraint(equalTo: view.topAnchor),
-                       stepControl.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                       stepControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                       stepControl.trailingAnchor.constraint(equalTo: view.trailingAnchor)]
-    
-    NSLayoutConstraint.activate(constraints)
+    NSLayoutConstraint.activate([
+      stepControl.topAnchor.constraint(equalTo: view.topAnchor),
+      stepControl.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      stepControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      stepControl.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    ])
   }
 }
 
 // MARK: StepControlDataSource
 extension StepsContainerViewController: StepControlDataSource {
   
-    public func numberOfItems(viewPager: StepControl) -> Int {
+  public func numberOfItems(viewPager: StepControl) -> Int {
     return viewSteps.count
   }
   
-    public func viewAtIndex(viewPager: StepControl, index: Int, view: UIView?) -> UIView {
+  public func viewAtIndex(viewPager: StepControl, index: Int, view: UIView?) -> UIView {
     return viewSteps[index]
   }
 }
